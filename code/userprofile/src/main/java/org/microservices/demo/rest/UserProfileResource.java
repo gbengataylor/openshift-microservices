@@ -51,13 +51,11 @@ import org.springframework.beans.factory.annotation.Qualifier;
 @Path("/users")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-//TODO: fix generated OpenAPI spec/swagger-ui. PUT and POST examples aren't generating the proper rer to UserProfile
 public class UserProfileResource {
 
     // Using Spring-DI
     @Autowired
     // @Qualifier("${user.profile.source}")
-    // TODO: figure how to make this more configurable at runtime
     // spring boot has ConditionalOnProperty that can be set on bean. can the
     // quarkus springDI processor
     // handle this...probably not at the moment.
@@ -116,7 +114,6 @@ public class UserProfileResource {
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     @APIResponse(responseCode = "200", description = "User Profile Retrieved")
     @APIResponse(responseCode = "404", description = "User Profile Not Found")      
-    // TODO -- better IO Exception handling
     public Response uploadPhoto(MultipartFormDataInput input, @PathParam("id") String id)  throws IOException {
 
         Map<String, List<InputPart>> uploadForm = input.getFormDataMap();
@@ -146,7 +143,6 @@ public class UserProfileResource {
                         mediaType = "application/octet-stream",
                         schema = @Schema())) 
     @APIResponse(responseCode = "404", description = "User Profile Photo Not Found")       
-        // TODO -- better IO Exception handling
     public Response downloadPhoto(@PathParam("id") String id) throws IOException {
 
         UserProfilePhoto userProfilePhoto = userProfileService.getUserProfilePhoto(id);
